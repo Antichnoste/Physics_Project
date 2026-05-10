@@ -13,11 +13,11 @@ from src.coils_config import coils_config
 # Настройка страницы
 st.set_page_config(page_title="MRI Shimming Lab", layout="wide")
 
-st.title("🔬 Лаборатория активного шимминга МРТ")
+st.title("Лаборатория активного шимминга МРТ")
 st.markdown("Перемещайте катушки и выбирайте алгоритмы, чтобы увидеть, как система борется с неоднородностью поля.")
 
 # --- SIDEBAR (Панель управления) ---
-st.sidebar.header("⚙️ Настройки системы")
+st.sidebar.header("Настройки системы")
 
 # 1. Выбор алгоритма
 method = st.sidebar.selectbox(
@@ -26,7 +26,7 @@ method = st.sidebar.selectbox(
 )
 
 # 2. Управление катушками
-st.sidebar.subheader("📍 Положение катушек")
+st.sidebar.subheader("Положение катушек")
 coil_idx = st.sidebar.number_input("Выберите номер катушки (1-12)", 1, 12, 1) - 1
 
 # Слайдеры для изменения координат выбранной катушки
@@ -51,7 +51,7 @@ grid, B_main = load_base_data()
 # Кнопка запуска (для тяжелых алгоритмов лучше запускать по кнопке, для L-BFGS-B можно в реальном времени)
 run_auto = method == "L-BFGS-B" or method == "Nelder-Mead"
 
-if run_auto or st.sidebar.button("🚀 Рассчитать шимминг"):
+if run_auto or st.sidebar.button("Рассчитать шимминг"):
     
     with st.spinner('Математика в процессе...'):
         # 1. Пересчитываем единичные поля (так как геометрия могла измениться)
@@ -75,7 +75,7 @@ if run_auto or st.sidebar.button("🚀 Рассчитать шимминг"):
     col1, col2 = st.columns(2)
 
     with col1:
-        st.subheader("📊 Результаты")
+        st.subheader("Результаты")
         res_df = pd.DataFrame({
             "Параметр": ["Исходный PPM", "Итоговый PPM", "Улучшение (раз)", "Время счета"],
             "Значение": [
@@ -87,11 +87,11 @@ if run_auto or st.sidebar.button("🚀 Рассчитать шимминг"):
         })
         st.table(res_df)
         
-        st.subheader("⚡ Оптимальные токи (А)")
+        st.subheader("Оптимальные токи (А)")
         st.bar_chart(opt_currents)
 
     with col2:
-        st.subheader("🗺️ Карта неоднородности (Срез XY)")
+        st.subheader("Карта неоднородности (Срез XY)")
         
         # Подготовка данных для Plotly Heatmap
         z_slice = grid.shape[2] // 2
@@ -111,7 +111,7 @@ if run_auto or st.sidebar.button("🚀 Рассчитать шимминг"):
         st.plotly_chart(fig, use_container_width=True)
 
     # 3D Вид катушек
-    st.subheader("🌐 3D Визуализация системы")
+    st.subheader("3D Визуализация системы")
     fig_3d = go.Figure()
     
     # Рисуем катушки
