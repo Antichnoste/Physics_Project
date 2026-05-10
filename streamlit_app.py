@@ -27,7 +27,8 @@ method = st.sidebar.selectbox(
 
 # 2. Управление катушками
 st.sidebar.subheader("Положение катушек")
-coil_idx = st.sidebar.number_input("Выберите номер катушки (1-12)", 1, 12, 1) - 1
+num_coils = len(coils_config)
+coil_idx = st.sidebar.number_input(f"Выберите номер катушки (1-{num_coils})", 1, num_coils, 1) - 1
 
 # Слайдеры для изменения координат выбранной катушки
 # Мы позволяем двигать катушку в диапазоне ±20 мм от её начальной позиции
